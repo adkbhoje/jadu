@@ -1,6 +1,7 @@
 # Use AWS Terraform provider
 provider "aws" {
   region = "us-east-2"
+  credentials_ID = "awsCredentials"
 }
 
 # Create EC2 instance

@@ -1,16 +1,3 @@
-pipeline {
-    agent any
-    stages {
-        stage('hello AWS') {
-            steps {
-                withAWS(credentials: 'awsCredentials', region: 'us-east-1') {
-                    sh 'echo "hello KB">hello.txt'
-                }
-            }
-        }
-    }
-}
-
 pipeline {   
   agent {
     node {

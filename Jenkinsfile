@@ -31,7 +31,7 @@ pipeline {
     }
     stage('apply') {
       steps {
-        sh 'docker run -w /app -v /awsCredentials:awsCredentials/ -v `pwd`:/app hashicorp/terraform:light apply -auto-approve'
+        sh 'docker run -w /app -v /awsCredentials:/awsCredentials -v `pwd`:/app hashicorp/terraform:light apply -auto-approve'
         cleanWs()
       }
     }

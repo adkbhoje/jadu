@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "eu-west-2"
+  region = "us-east-2"
 }
 
 resource "aws_security_group" "jenkins-pipeline" {

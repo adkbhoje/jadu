@@ -18,7 +18,7 @@ pipeline {
     }
     stage('plan') {
       steps {
-        sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light plan'
+        sh 'docker run -w /app -v /awsCredentials:/awsCredentials -v `pwd`:/app hashicorp/terraform:light plan'
       }
     }
     stage('approval') {
@@ -31,7 +31,7 @@ pipeline {
     }
     stage('apply') {
       steps {
-        sh 'docker run -w /app -v /root/.aws:/root/.aws -v `pwd`:/app hashicorp/terraform:light apply -auto-approve'
+        sh 'docker run -w /app -v /awsCredentials:awsCredentials/ -v `pwd`:/app hashicorp/terraform:light apply -auto-approve'
         cleanWs()
       }
     }

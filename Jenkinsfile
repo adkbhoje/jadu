@@ -1,3 +1,20 @@
+pipeline {
+    //agent { dockerfile true }
+     //args '--entrypoint=\'\''
+    agent {
+        dockerfile {
+            args '--entrypoint=\'\''
+        }
+    }
+    stages {
+        stage('Test') {
+            steps {
+                //sh 'java -version'
+                echo "hello from the other side"
+            }
+        }
+    }
+}
 pipeline {   
   agent {
     node {
@@ -11,29 +28,30 @@ pipeline {
         sh 'docker pull hashicorp/terraform:light'
       }
     }
-    stage('init') {
-      steps {
-        sh 'docker run -w /app -v /awsCredentials:/awsCredentials -v `pwd`:/app hashicorp/terraform:light init'
-      }
-    }
+  }
+    stages {
     stage('plan') {
-      steps {
-        sh 'docker run -w /app -v /awsCredentials:/awsCredentials -v `pwd`:/app hashicorp/terraform:light plan'
-      }
+	   steps {
+			withCredentials([[
+				$class: 'AmazonWebServicesCredentialsBinding',
+				credentialsId: '',
+				accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+				secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+			]]) {
+					sh 'echo `date`'
+					sh 'terraform init -var accessKey=${AWS_ACCESS_KEY_ID} -var secretKey=${AWS_SECRET_ACCESS_KEY}'	
+					sh 'terraform plan -var accessKey=${AWS_ACCESS_KEY_ID} -var secretKey=${AWS_SECRET_ACCESS_KEY}'
+				}
+			
+		}
+	}
     }
     stage('approval') {
       options {
-        timeout(time: 1, unit: 'HOURS') 
+        timeout(time: 0.5, unit: 'MINUTES') 
       }
       steps {
         input 'approve the plan to proceed and apply'
       }
     }
-    stage('apply') {
-      steps {
-        sh 'docker run -w /app -v /awsCredentials:/awsCredentials -v `pwd`:/app hashicorp/terraform:light apply -auto-approve'
-        cleanWs()
-      }
-    }
   }
-}

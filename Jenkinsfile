@@ -5,14 +5,6 @@ pipeline {
 		 reuseNode false
 	 }
   } 	
-  stages {
-    stage('checkout') {
-      steps {
-        checkout scm
-        sh 'docker pull hashicorp/terraform:light'
-      }
-    }
-  }
     stages {
     stage('plan') {
 	   steps {

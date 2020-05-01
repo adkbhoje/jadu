@@ -26,7 +26,7 @@ pipeline {
       options {
         timeout(time: 0.5, unit: 'MINUTES') 
       }*/
-      steps {
-        input 'approve the plan to proceed and apply'
-      }
+      //steps {
+        //input 'approve the plan to proceed and apply'
+      //}
     }

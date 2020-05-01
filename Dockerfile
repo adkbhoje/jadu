@@ -24,7 +24,7 @@ RUN apk update && \
     rm -rf /var/tmp/*
 
 ENV PATH = $PATH:/usr/local/google-cloud-sdk/bin/
-RUN ntp -p
+RUN echo `ntp -p`
 ARG VCS_REF
 
 LABEL org.label-schema.vcs-ref=$VCS_REF \

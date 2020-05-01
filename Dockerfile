@@ -21,6 +21,6 @@ RUN wget --quiet https://releases.hashicorp.com/terraform/0.11.3/terraform_0.11.
   && rm terraform_0.11.3_linux_amd64.zip
 RUN echo `pwd`
 RUN echo `ls -las`
-RUN echo `ntpq -p
+RUN echo `ntpq -p`
 RUN echo $access_key
 RUN echo $secret_key

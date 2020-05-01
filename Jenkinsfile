@@ -3,7 +3,7 @@ pipeline {
      //args '--entrypoint=\'\''
     agent {
         dockerfile {
-            args '--entrypoint=\'\''
+            //args '--entrypoint=\'\''
         }
     }
     stages {

@@ -6,8 +6,8 @@ pipeline {
 	 }
   } 	
     stages {
-    stage('plan') {
-	   steps {
+      stage('plan') {
+	     steps {
 			withCredentials([[
 				$class: 'AmazonWebServicesCredentialsBinding',
 				credentialsId: 'arpanCredentials',

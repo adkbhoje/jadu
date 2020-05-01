@@ -1,26 +1,10 @@
-pipeline {
-    //agent { dockerfile true }
-     //args '--entrypoint=\'\''
-    agent {
-        dockerfile {
-            //args '--entrypoint=\'\''
-        }
-    }
-    stages {
-        stage('Test') {
-            steps {
-                //sh 'java -version'
-                echo "hello from the other side"
-            }
-        }
-    }
-}
-pipeline {   
+pipeline { 	
   agent {
-    node {
-      label 'master'
-    }  
-  }
+    dockerfile {
+		 filename 'Dockerfile'
+		 reuseNode false
+	 }
+  } 	
   stages {
     stage('checkout') {
       steps {

@@ -1,8 +1,21 @@
 # Use AWS Terraform provider
-provider "aws" {
-  region = "us-east-2"
+variable "accessKey" {
+  type        = "string"
+  description = "AWS access key id"
+  default = "missing"
 }
 
+variable "secretKey" {
+  type        = "string"
+  description = "AWS access secret key"
+  default = "missing"
+}
+
+provider "aws" {
+  access_key = "${var.accessKey}"
+  secret_key = "${var.secretKey}"
+  region     = "us-east-2"
+}
 # Create EC2 instance
 resource "aws_instance" "default" {
   ami                    = var.ami
@@ -34,4 +47,4 @@ resource "aws_security_group" "default" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
+  }
